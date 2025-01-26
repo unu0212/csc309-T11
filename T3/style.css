@@ -1,72 +1,55 @@
-header{
-    display: flex;
-    justify-content: space-between; /* Spaces out the items */
-    align-items: center;
-}
+/* Navbar styling */
 
-.navbar{
-    margin-left: auto;
-}
-
-.navbar ul{
-    display: flex;
-    justify-content: right;
-}
-
-.navbar li{
-    margin-right: 20px;
-    list-style: none;
-}
-
-
-.current a{
-    text-decoration: underline;
-    text-decoration-color: #e8797f;
-    text-decoration-thickness: 2px;
-}
-
-.hero-container {
+.navbar ul {
     
-    padding: 20px; /* Adds some padding around the container */
+    display: flex; /* Arrange navbar items horizontally */
+    padding: 0; /* Remove default padding */
 }
+
+.navbar li {
+    margin-right: 20px; /* Space between items */
+    list-style-type: none; /* Remove bullet points */
+}
+
+.current a {
+    text-decoration: underline; /* Underline the active page */
+    color: #e8797f; /* Set the underline color */
+    text-decoration-thickness: 2px; /* Set the thickness of the underline */
+}
+
+/* Hero section styling */
+.hero-container {
+    display: flex; /* Use flex display for the hero section */
+    flex-direction: column; /* Stack items vertically */
+}
+
 #hero-section {
-    display: flex;
-    flex-direction: column; /* Stacks the elements vertically */
-    align-items: center; /* Centers the content horizontally */
-    text-align: center; /* Centers text inside the section */
+    display: flex; /* Flex display for hero section */
+    flex-direction: column; /* Stack title and image side by side */
 }
 
-/* About Me title styling */
-#section-title {
-    font-size: 30px; /* Sets the font size of the About Me title */
-    margin-bottom: 20px; /* Adds space below the title */
-}
-
-/* Hero content layout */
 #hero {
-    display: flex; /* Aligns the image and paragraph side by side */
-    align-items: center; /* Vertically centers the content */
-    gap: 100px; /* Adds 100px space between the image and paragraph */
+    display: flex; /* Use flex to position image and text side by side */
+    gap: 100px; /* Set gap between image and text */
+    align-items: center; /* Center the items vertically */
 }
 
+#hero-section p#section-title {
+    font-size: 30px; /* Set font size for the title */
+    text-align: center; /* Center the title */
+}
+
+/* Courses section styling */
 #courses-section {
-    display: flex; /* Enables Flexbox */
-    flex-direction: column; /* Stacks the child elements (paragraph and list) vertically */
-    align-items: center; /* Centers the child elements along the cross axis (horizontally) */
-    font-size: 15px; /* Sets the font size for the section */
-    padding: 20px; /* Adds padding around the section */
+    display: flex; /* Use flex display */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center child elements along the cross axis */
 }
 
-/* Courses list items with bullet points */
-#courses-section ul {
-    list-style-type: disc; /* Displays bullet points for list items */
-    padding-left: 20px; /* Adds padding to create space between the bullet and text */
-    margin: 0; /* Removes default margin */
-}
-
-/* Styling for individual list items */
 #courses-section li {
-    margin-bottom: 10px; /* Adds space between list items */
+    font-size: 15px; /* Set font size for the list items */
+    list-style-type: disc; /* Use bullet points for the list */
+    margin: 5px 0; /* Add margin to space out the list items */
 }
 
 /* Contact container layout */
@@ -122,5 +105,5 @@ input[type="submit"] {
 
 /* Hover effect for the submit button */
 input[type="submit"]:hover {
-    background-color: #505050; /* Darkens the background on hover */
+    background-color: #636161; /* Darkens the background on hover */
 }
