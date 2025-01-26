@@ -12,8 +12,10 @@
 }
 
 .current {
-    border-bottom: 2px solid #e8797f;
-
+    text-decoration: underline; /* Apply underline to the active link */
+    text-decoration-color: #e8797f;
+    text-decoration-thickness: 2px;
+   
 }
 
 /* Hero section styling */
