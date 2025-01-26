@@ -11,7 +11,7 @@
     list-style-type: none; /* Remove bullet points */
 }
 
-.current a {
+.current{
     text-decoration: underline; /* Underline the active page */
     color: #e8797f; /* Set the underline color */
     text-decoration-thickness: 2px; /* Set the thickness of the underline */
@@ -21,11 +21,14 @@
 .hero-container {
     display: flex; /* Use flex display for the hero section */
     flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; 
 }
 
 #hero-section {
     display: flex; /* Flex display for hero section */
-    flex-direction: column; /* Stack title and image side by side */
+    flex-direction: column;
+    align-items: center;  /* Stack title and image side by side */
 }
 
 #hero {
