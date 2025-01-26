@@ -1,0 +1,126 @@
+header{
+    display: flex;
+    justify-content: space-between; /* Spaces out the items */
+    align-items: center;
+}
+
+.navbar{
+    margin-left: auto;
+}
+
+.navbar ul{
+    display: flex;
+    justify-content: right;
+}
+
+.navbar li{
+    margin-right: 20px;
+    list-style: none;
+}
+
+
+.current a{
+    text-decoration: underline;
+    text-decoration-color: #e8797f;
+    text-decoration-thickness: 2px;
+}
+
+.hero-container {
+    
+    padding: 20px; /* Adds some padding around the container */
+}
+#hero-section {
+    display: flex;
+    flex-direction: column; /* Stacks the elements vertically */
+    align-items: center; /* Centers the content horizontally */
+    text-align: center; /* Centers text inside the section */
+}
+
+/* About Me title styling */
+#section-title {
+    font-size: 30px; /* Sets the font size of the About Me title */
+    margin-bottom: 20px; /* Adds space below the title */
+}
+
+/* Hero content layout */
+#hero {
+    display: flex; /* Aligns the image and paragraph side by side */
+    align-items: center; /* Vertically centers the content */
+    gap: 100px; /* Adds 100px space between the image and paragraph */
+}
+
+#courses-section {
+    display: flex; /* Enables Flexbox */
+    flex-direction: column; /* Stacks the child elements (paragraph and list) vertically */
+    align-items: center; /* Centers the child elements along the cross axis (horizontally) */
+    font-size: 15px; /* Sets the font size for the section */
+    padding: 20px; /* Adds padding around the section */
+}
+
+/* Courses list items with bullet points */
+#courses-section ul {
+    list-style-type: disc; /* Displays bullet points for list items */
+    padding-left: 20px; /* Adds padding to create space between the bullet and text */
+    margin: 0; /* Removes default margin */
+}
+
+/* Styling for individual list items */
+#courses-section li {
+    margin-bottom: 10px; /* Adds space between list items */
+}
+
+/* Contact container layout */
+.contact-container {
+    display: flex; /* Enables Flexbox */
+    flex-direction: column; /* Arranges child elements (title and form) vertically */
+    justify-content: center; /* Centers items vertically */
+    align-items: center; /* Centers items horizontally */
+    padding: 20px; /* Adds padding around the container */
+}
+
+/* Contact Me title */
+#section-title {
+    font-size: 30px; /* Sets the font size for the title */
+    margin-bottom: 20px; /* Adds space between title and form */
+}
+
+/* Form styling */
+form {
+    display: flex; /* Enables Flexbox for the form */
+    flex-direction: column; /* Arranges form elements vertically */
+    gap: 15px; /* Adds space between form fields */
+    width: 100%; /* Ensures form takes full width */
+    max-width: 500px; /* Limits the form width */
+}
+
+/* Label styling to appear above the fields */
+label {
+    font-size: 16px; /* Sets font size for labels */
+    margin-bottom: 5px; /* Adds space between label and input field */
+}
+
+/* Input fields styling */
+input[type="text"],
+textarea {
+    padding: 10px; /* Adds padding to the input fields */
+    font-size: 16px; /* Sets font size for inputs */
+    width: 100%; /* Makes the input fields fill the available width */
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
+}
+
+/* Submit button styling */
+input[type="submit"] {
+    background-color: #636161; /* Sets background color */
+    color: white; /* Sets text color */
+    font-size: 16px; /* Sets font size */
+    width: 100px; /* Sets width of the button */
+    height: 30px; /* Sets height of the button */
+    border: none; /* Removes border */
+    cursor: pointer; /* Changes cursor to a pointer on hover */
+    margin-top: 10px; /* Adds space above the submit button */
+}
+
+/* Hover effect for the submit button */
+input[type="submit"]:hover {
+    background-color: #505050; /* Darkens the background on hover */
+}
