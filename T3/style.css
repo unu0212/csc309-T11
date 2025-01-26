@@ -110,3 +110,8 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #636161; /* Darkens the background on hover */
 }
+.current{
+    text-decoration: underline; /* Underline the active page */
+    color: #e8797f; /* Set the underline color */
+    text-decoration-thickness: 2px; /* Set the thickness of the underline */
+}
