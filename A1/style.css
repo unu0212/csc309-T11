@@ -26,7 +26,7 @@
  header{
     width: 100%;
     height: 66px;
-    padding-left: 0rem;
+    padding-left: 0.5rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -181,9 +181,10 @@
   
 
   button {
-    padding: 0.5rem 1rem;              /* Provides spacing inside the button */
+    width: 121px;
+    height: 35px;   
+    line-height: 35px;
     font-size: 16px;
-    line-height: 1.2;
     background-color: #ffffff;         /* Button background color */
     color: #007EA8;                     /* Text color */
     text-decoration: none;            /* Remove underline from links */
@@ -205,7 +206,7 @@
     display: inline-block;            /* Behaves like a block-level element while flowing inline */
     margin-top: 1rem;
     padding: 0.3rem 0.8rem;              /* Provides spacing inside the button */
-    font-size: 16px;
+    font-size: 13.6px;
     background-color: #ffffff;         /* Button background color */
     color: #007EA8;                     /* Text color */
     text-decoration: none;            /* Remove underline from links */
