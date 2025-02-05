@@ -12,9 +12,15 @@
     padding: 0;
     box-sizing: border-box;
  }
-
+ #page-container{
+    position: relative;
+    min-height: 100vh;
+ }
+ #content-wrap {
+    padding-bottom: 3rem;
+ }
  html, body{
-    height: 100%;
+   
     font-family: sans-serif;
  }
 
@@ -27,6 +33,7 @@
     width: 100%;
     height: 66px;
     padding-left: 0.5rem;
+    padding-right: 0.5rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -35,6 +42,7 @@
  nav {
     display: flex;
     gap: 2rem;
+    margin-left: 0.5rem;
  }
  header nav a{
     text-decoration: none;
@@ -245,15 +253,18 @@
   }
 
 
-  footer {
-    width: 100%;             /* Full viewport width */
-    height: 3rem;             /* Fixed height of 3rem */
+  #footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3rem;
     background-color: #333333;    /* Background color (matches header) */
     display: flex;
     justify-content: center;  /* Centers content horizontally */
     align-items: center;      /* Centers content vertically */
     padding: 0 0.5rem;        /* Left/right padding for consistency */
     color: #ffffff;
-    font-size: 1rem;
+    font-size: 16px;
+    font-weight: 400;
   }
   
