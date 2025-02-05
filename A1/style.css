@@ -26,7 +26,7 @@
  header{
     width: 100%;
     height: 66px;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -34,7 +34,7 @@
  }
 
  header nav a{
-    margin-right: 1rem;
+    margin-right: 2rem;
     text-decoration: none;
     color: #00b8d4;
     font-size: 19.2px;
@@ -50,7 +50,9 @@
     color: white;
  }
 
-
+ body {
+    background-color: #BBBBBB;
+ }
  main{
     flex: 1;
     padding-top: 128px;
@@ -72,7 +74,7 @@
     height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
  }
 
  .portrait-container img {
@@ -85,6 +87,8 @@
   .email {
     font-family: "Times New Roman", Times, serif;
     text-decoration: none;
+    font-size: 32px;
+    font-weight: 700;
   }
   
   .embedded-pdf {
@@ -97,9 +101,24 @@
     padding: 0.5 rem;
     margin: 1rem 0;
   }
-  p {
-    margin-right: 0.5rem;
-    margin-left: 0.5rem ;
+  h1 {
+    margin-top: 0;
+    margin-bottom: 1 rem;
+    font-size: 48px;  /* First attempt: Reduce by 10% */
+    font-weight: bold;
+    padding-left: 0.5rem;  /* Ensuring responsive padding */
+    padding-right: 0.5rem;
+}
+ p {
+    margin-top: 0;
+    font-size: 24px;  /* First attempt: Reduce by 10% */
+    padding-left: 0.5rem;  /* Ensuring responsive padding */
+    padding-right: 0.5rem;
+    margin-bottom: 1.5rem;
+ }
+  details summary {
+    font-size: 20px;
+    margin-bottom: 1rem;
   }
   form {
     max-width: 600px;
@@ -147,7 +166,7 @@
 
   button {
     padding: 0.3rem 0.8rem;              /* Provides spacing inside the button */
-    font-size: 0.9rem;
+    font-size: 16px;
     background-color: #ffffff;         /* Button background color */
     color: #007EA8;                     /* Text color */
     text-decoration: none;            /* Remove underline from links */
@@ -156,10 +175,11 @@
     border-color: #007EA8;
     transition: background-color 0.3s ease, border-color 0.3s ease;
     cursor: pointer;
+    min-width: 126px;
   }
 
   button:hover {
-    background-color: #007b9e;
+    background-color: #007ea8;
     color:#ffffff;        
     border-color: #ffffff;
   }
@@ -168,7 +188,7 @@
     display: inline-block;            /* Behaves like a block-level element while flowing inline */
     margin-top: 1rem;
     padding: 0.3rem 0.8rem;              /* Provides spacing inside the button */
-    font-size: 0.9rem;
+    font-size: 16px;
     background-color: #ffffff;         /* Button background color */
     color: #007EA8;                     /* Text color */
     text-decoration: none;            /* Remove underline from links */
@@ -177,11 +197,12 @@
     border-color: #007EA8;
     transition: background-color 0.3s ease, border-color 0.3s ease; 
     cursor: pointer;
+    min-width: 126px;
   }
   
   /* Hover state for the button */
   .button:hover {
-    background-color: #007b9e;
+    background-color: #007ea8;
     color:#ffffff;        
     border-color: #ffffff;
   }
