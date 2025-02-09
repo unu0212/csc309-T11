@@ -117,11 +117,7 @@
   details {
     margin: 1rem 0;
   }
-  #about-me-heading + details{
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;  
-    margin-right: 0.5rem;
-  }
+
   details summary {
     font-size: 20px;
     margin-bottom: 1rem;
@@ -136,6 +132,9 @@
     font-size: 20px;       
     margin-bottom: 0.5rem; 
     text-align: center;   
+  }
+  h1.about-me-heading + details{
+    margin-top: 0.5rem;
   }
   .embedded-pdf {
     width: 100%;
