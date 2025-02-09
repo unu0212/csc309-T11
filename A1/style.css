@@ -143,10 +143,12 @@
     border: 1px solid #ccc;
   }
   
-  p.Uoft-code-of-behaviour {
+  details + p.Uoft-code-of-behaviour {
     font-size: 16px;
     margin-left: 0.5rem;  
     margin-right: 0.5rem;
+    margin-top: 0.5rem;
+    
   }
 
   /* contact.html */
