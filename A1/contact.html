@@ -14,50 +14,53 @@
   </head>
   <body>
     <!-- TODO: complete me -->
-    <header>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a class="current" href="contact.html">Contact</a>
-      </nav>
-    </header>
-    <main>
-      <div class="portrait-container">
-        <img src="./port.jpg" alt="Unu's Portrait"/>
-      </div>
-      <h1>Unurjargal Batsuuri</h1>
-      <p><a href="mailto:unu.batsuuri@mail.utoronto.ca?subject=Bug%20Found&body=I%20found%20the%20following%20bug%20on%20your%20website:%0A%0A" class="email">
-        unu.batsuuri@mail.utoronto.ca
-      </a></p>
+    <div id="page-container">
+      <div id="content-wrap">
+        <header>
+          <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a class="current" href="contact.html">Contact</a>
+          </nav>
+        </header>
+        <main>
+          <div class="portrait-container">
+            <img src="./port.jpg" alt="Unu's Portrait">
+          </div>
+          <h1>Unurjargal Batsuuri</h1>
+          <p><a href="mailto:unu.batsuuri@mail.utoronto.ca?subject=Bug%20Found&body=I%20found%20the%20following%20bug%20on%20your%20website:%0A%0A" class="email">
+            unu.batsuuri@mail.utoronto.ca
+          </a></p>
 
-      <form action="https://postman-echo.com/post" method="POST">
-        <div class="form-group">
-          <label for="email">Your Email:</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-    
-        <div class="form-group">
-          <label for="feedback">Feedback:</label>
-          <textarea id="feedback" name="feedback" rows="4" placeholder="Enter your feedback here" required></textarea>
-        </div>
-    
-        <div class="form-group">
-          <label for="attachment">Attachment:</label>
-          <input type="file" id="attachment" name="attachments" placeholder="Browse">
-        </div>
-    
-        <div class="form-group checkbox-group">
-          <input type="checkbox" id="consent" name="consent" required>
-          <label for="consent">You agree to receive emails from me</label>
-        </div>
+          <form action="https://postman-echo.com/post" method="POST">
+            <div class="form-group">
+              <label for="email">Your Email:</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+        
+            <div class="form-group">
+              <label for="feedback">Feedback:</label>
+              <textarea id="feedback" name="feedback" rows="4" placeholder="Enter your feedback here" required></textarea>
+            </div>
+        
+            <div class="form-group">
+              <label for="attachment">Attachment:</label>
+              <input type="file" id="attachment" name="attachments">
+            </div>
+        
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="consent" name="consent" required>
+              <label for="consent">You agree to receive emails from me</label>
+            </div>
 
-        <button type="submit">Send Feedback</button>
-      </form>
+            <button type="submit">Send Feedback</button>
+          </form>
 
-    </main>
-
-    <footer>
-      <p>Copyright 2025 by batsuuri.</p>
-    </footer>
+        </main>
+      </div>  
+      <footer id="footer">
+        <p>Copyright 2025 by batsuuri.</p>
+      </footer>
+    </div> 
   </body>
 </html>
