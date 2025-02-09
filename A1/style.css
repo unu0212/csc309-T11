@@ -130,7 +130,7 @@
  }
  details ul li {
     font-size: 20px;       
-    margin-bottom: 0.5rem; 
+    margin-bottom: 0rem; 
     text-align: center;   
   }
   h1.about-me-heading + details{
@@ -143,12 +143,9 @@
     border: 1px solid #ccc;
   }
   
-  details + p.Uoft-code-of-behaviour {
+  p.Uoft-code-of-behaviour {
     font-size: 16px;
-    margin-left: 0.5rem;  
-    margin-right: 0.5rem;
-    margin-top: 0.5rem;
-    
+    padding: 0.5rem;
   }
 
   /* contact.html */
