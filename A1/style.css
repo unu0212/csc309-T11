@@ -134,7 +134,7 @@
     text-align: center;   
   }
   h1.about-me-heading + details{
-    margin-top: 0.5rem;
+    margin-top: 0rem;
   }
   .embedded-pdf {
     width: 100%;
@@ -145,7 +145,8 @@
   
   p.Uoft-code-of-behaviour {
     font-size: 16px;
-    padding: 0rem 0.5rem 0rem 0.5rem;
+    margin-left: 0.5rem;  
+    margin-right: 0.5rem;
   }
 
   /* contact.html */
