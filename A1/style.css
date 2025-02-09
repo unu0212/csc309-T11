@@ -120,7 +120,7 @@
 
   details summary {
     font-size: 20px;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
   }
   details ul {
     list-style-type: disc;
@@ -130,7 +130,7 @@
  }
  details ul li {
     font-size: 20px;       
-    margin-bottom: 0rem; 
+    margin-bottom: 0.5rem; 
     text-align: center;   
   }
   h1.about-me-heading + details{
@@ -143,9 +143,11 @@
     border: 1px solid #ccc;
   }
   
-  p.Uoft-code-of-behaviour {
+  details + p.Uoft-code-of-behaviour {
     font-size: 16px;
-    padding: 0.5rem;
+    margin-left: 0.5rem;  
+    margin-right: 0.5rem;
+    margin-top: 0rem; 
   }
 
   /* contact.html */
