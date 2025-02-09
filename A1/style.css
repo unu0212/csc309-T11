@@ -61,16 +61,15 @@
  h1 {
     margin-top: 0;
     margin-bottom: 1rem;
-    font-size: 48px;  /* First attempt: Reduce by 10% */
+    font-size: 48px;  
     font-weight: bold;
-    padding-left: 0.5rem;  /* Ensuring responsive padding */
+    padding-left: 0.5rem;  
     padding-right: 0.5rem;
 }
  p {
     margin-top: 0;
     font-size: 24px;  
-    margin-left: 0.5rem;  
-    margin-right: 0.5rem;
+    padding: 0.5rem;
     margin-bottom: 1.5rem;
  }
  body {
@@ -106,14 +105,13 @@
     object-fit: cover;
  }
   
-  /* Special styling for email addresses */
   .email {
     font-family: "Times New Roman", Times, serif;
     text-decoration: none;
     font-size: 32px;
     font-weight: 700;
   }
-  
+  /* about.htm; */
   .embedded-pdf {
     width: 100%;
     max-width: 720px;
@@ -127,24 +125,23 @@
   
   details summary {
     font-size: 20px;
-    margin-bottom: 1rem;
+   
   }
   details ul {
     list-style-type: disc;
     padding-left: 1.5rem;   
-    margin-top: 1rem; 
    
  }
  details ul li {
-    font-size: 20px;       /* Adjust the font size of the list items */
-    margin-bottom: 0.5rem; /* Space between list items */
+    font-size: 20px;       
+    margin-bottom: 0.5rem; 
     text-align: center;   
   }
   p.Uoft-code-of-behaviour {
     font-size: 16px;
   }
 
-  
+  /* contact.html */
   form {
     max-width: 600px;
     margin: 2rem auto;
@@ -153,15 +150,15 @@
     gap: 1rem;
   }
   
-  /* Labels and Inputs Side by Side */
+  
   .form-group {
     display: flex;
     align-items: center;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-wrap: wrap; 
   }
   
   .form-group label {
-    min-width: 120px; /* Minimum space for label but allows flexibility */
+    min-width: 120px; 
     margin-right: 1rem;
     text-align: right;
     font-weight: bold;
@@ -170,14 +167,14 @@
   .form-group input[type="email"],
   .form-group textarea,
   .form-group input[type="file"] {
-    flex: 1; /* Flexible width based on available space */
+    flex: 1; 
     padding: 0.8rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: auto; /* Remove any fixed width */
+    width: auto; 
   }
   
-  /* Checkbox Group Styling */
+  
   .checkbox-group {
     display: flex;
     align-items: center;
@@ -193,11 +190,11 @@
     height: 35px;   
     line-height: 35px;
     font-size: 13.6px;
-    background-color: #ffffff;         /* Button background color */
-    color: #007EA8;                     /* Text color */
-    text-decoration: none;            /* Remove underline from links */
-    border: 2px solid transparent;    /* Ensures a border is defined to avoid default browser styles */
-    border-radius: 4px;               /* Rounded corners */
+    background-color: #ffffff;         
+    color: #007EA8;                   
+    text-decoration: none;           
+    border: 2px solid transparent;    
+    border-radius: 4px;              
     border-color: #007EA8;
     cursor: pointer;
     min-width: 126px;
@@ -211,22 +208,22 @@
   }
 
   .button {
-    display: inline-block;            /* Behaves like a block-level element while flowing inline */
+    display: inline-block;           
     width: 121px;
-    height: 35px;             /* Provides spacing inside the button */
+    height: 35px;             
     font-size: 16px;
-    background-color: #ffffff;         /* Button background color */
-    color: #007EA8;                     /* Text color */
-    text-decoration: none;            /* Remove underline from links */
-    border: 2px solid transparent;    /* Ensures a border is defined to avoid default browser styles */
-    border-radius: 4px;               /* Rounded corners */
+    background-color: #ffffff;        
+    color: #007EA8;                    
+    text-decoration: none;            
+    border: 2px solid transparent;    
+    border-radius: 4px;              
     border-color: #007EA8;
     cursor: pointer;
     min-width: 126px;
     font-weight: 700;
   }
   
-  /* Hover state for the button */
+  
   .button:hover {
     background-color: #007EA8;
     color:#FFFFFF;        
@@ -242,7 +239,7 @@
     .form-group label {
       text-align: left;
       margin-bottom: 0.5rem;
-      min-width: unset; /* Remove min-width for small screens */
+      min-width: unset; 
     }
   
     button {
