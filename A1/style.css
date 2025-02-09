@@ -113,14 +113,10 @@
     font-weight: 700;
   }
   /* about.htm; */
-  .embedded-pdf {
-    width: 100%;
-    max-width: 720px;
-    height: 60vh;
-    border: 1px solid #ccc;
+  #about-me-heading {
+    margin-bottom: 0rem;
   }
   details {
-    padding: 0.5 rem;
     margin: 1rem 0;
   }
   
@@ -139,8 +135,16 @@
     margin-bottom: 0.5rem; 
     text-align: center;   
   }
+  .embedded-pdf {
+    width: 100%;
+    max-width: 720px;
+    height: 60vh;
+    border: 1px solid #ccc;
+  }
+  
   p.Uoft-code-of-behaviour {
     font-size: 16px;
+    padding: 0rem 0.5rem 0.5rem;
   }
 
   /* contact.html */
