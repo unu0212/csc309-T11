@@ -179,9 +179,9 @@
   .form-group input[type="file"] {
     flex: 1; 
     padding: 0.8rem;
-    border: 1px solid #ccc;
+    border: 1px solid #DDDDDD;
     border-radius: 4px;
-    width: auto; 
+    width: 600px; 
   }
   
   
