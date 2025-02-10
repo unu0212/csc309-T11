@@ -154,7 +154,7 @@
 
   form {
     max-width: 600px;
-    margin-top: 2rem;
+    margin: 2rem 0.5rem 0 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -174,15 +174,16 @@
     font-weight: bold;
   }
   
-  .form-group input[type="email"],
-  .form-group textarea,
-  .form-group input[type="file"] {
-    flex: 1; 
-    padding: 0.8rem;
-    border: 1px solid #DDDDDD;
-    border-radius: 4px;
-    width: 600px; 
-  }
+  form .form-group input[type="email"],
+  form .form-group textarea,
+  form .form-group input[type="file"] {
+  padding: 0.8rem;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 600px;
+}
+
   
   
   .checkbox-group {
@@ -194,6 +195,7 @@
     transform: scale(1.5);
     margin-right: 0.5rem;
   }
+
    p.email-p + form {
     margin-top: 0rem;
    }
