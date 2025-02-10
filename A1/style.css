@@ -163,8 +163,9 @@
   
   .form-group {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    flex-wrap: wrap; 
+    flex-wrap: nowrap; 
   }
   
   .form-group label {
@@ -177,13 +178,13 @@
   form .form-group input[type="email"],
   form .form-group textarea,
   form .form-group input[type="file"] {
-  padding: 0.8rem;
-  border: 1px solid #DDDDDD;
-  border-radius: 4px;
-  width: 100%;
-  max-width: 600px;
-}
-
+    width: 100%;
+    max-width: 600px;
+    padding: 0.8rem;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    
+  }
   
   
   .checkbox-group {
@@ -248,10 +249,12 @@
     .form-group {
       flex-direction: column;
       align-items: flex-start;
+      flex-wrap: wrap;
     }
   
     .form-group label {
       text-align: left;
+      margin-right: 0;
       margin-bottom: 0.5rem;
       min-width: unset; 
     }
