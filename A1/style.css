@@ -191,6 +191,10 @@ body{
     box-sizing: border-box;
   }
   
+  #contact-form {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem; 
+  }
   .checkbox-group {
     display: flex;
     align-items: center;
@@ -271,8 +275,8 @@ body{
     form .form-group input[type="email"],
     form .form-group textarea,
     form .form-group input[type="file"] {
-    width: 609px;
-    
+    width: 100%;
+    max-width: 100%;
   }
   }
 
