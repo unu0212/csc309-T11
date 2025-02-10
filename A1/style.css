@@ -24,7 +24,27 @@
     font-family: sans-serif;
  }
 
- body{
+ body {
+  background-color: #BBBBBB;
+}
+
+main{
+  flex: 1;
+  padding-top: 128px;
+  padding-bottom: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #BBBBBB;
+}
+
+main > *{
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  text-align: center;
+}
+
+body{
     display: flex;
     flex-direction: column;
  }
@@ -72,24 +92,6 @@
     margin-left: 0.5rem;  
     margin-right: 0.5rem;
     margin-bottom: 1.5rem;
- }
- body {
-    background-color: #BBBBBB;
- }
- main{
-    flex: 1;
-    padding-top: 128px;
-    padding-bottom: 128px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #BBBBBB;
- }
-
- main > *{
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    text-align: center;
  }
 
  .portrait-container {
@@ -189,7 +191,6 @@
     box-sizing: border-box;
   }
   
-  
   .checkbox-group {
     display: flex;
     align-items: center;
@@ -270,8 +271,8 @@
     form .form-group input[type="email"],
     form .form-group textarea,
     form .form-group input[type="file"] {
-    width: 100%;
-    max-width: 100%;
+    width: 609px;
+    
   }
   }
 
