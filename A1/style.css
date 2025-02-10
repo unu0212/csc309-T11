@@ -151,7 +151,10 @@
   }
 
   /* contact.html */
-
+  #contact-form {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
   form {
     max-width: 600px;
     margin: 2rem 0.5rem 0 0.5rem;
@@ -178,12 +181,12 @@
   form .form-group input[type="email"],
   form .form-group textarea,
   form .form-group input[type="file"] {
-    width: 100%;
+    width: 600px;
     max-width: 600px;
     padding: 0.8rem;
     border: 1px solid #DDDDDD;
-    border-radius: 4px;
-    
+    border-radius: 1px;
+    box-sizing: border-box;
   }
   
   
@@ -200,6 +203,7 @@
    p.email-p + form {
     margin-top: 0rem;
    }
+
 
   button {
     height: 35px;   
@@ -263,6 +267,12 @@
       width: 100%;
       text-align: center;
     }
+    form .form-group input[type="email"],
+    form .form-group textarea,
+    form .form-group input[type="file"] {
+    width: 100%;
+    max-width: 100%;
+  }
   }
 
 
