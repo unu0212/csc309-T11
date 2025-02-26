@@ -71,7 +71,6 @@ app.get("/notes/:noteId", (req, res) => {
 app.post("/notes", (req, res) => {
     console.log(req.body); // Log request body for debugging
     const newNote = structuredClone(req.body);
-    newNote.id = data.length + 1;
     data.push(newNote);
     res.status(201).json(newNote);
 });
