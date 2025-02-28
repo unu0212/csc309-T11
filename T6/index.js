@@ -44,49 +44,95 @@ const data = [
       completed: false
     }
   ]
-  app.get("/notes", (req, res) => {
+  app.get("/notes", async (req, res) => {
     
     const { done } = req.query;
-    if (done !== undefined && done !== "true" && done !== "false") {
-        return res.status(400).send("Bad request");
+    //let filter = {public : true};
+    if (done !== undefined ) {
+        if(done !== "true" && done !== "false"){
+            return res.status(400).send({message: "Invalid payload"});
+        }
+        //filter.completed = done === 'true';
+        if(done === 'true'){
+            const complete_notes = await prisma.note.findMany({where: {completed: true, public: true}});
+            return res.json(complete_notes);
+        }
+        if(done === 'false'){
+            const incomplete_notes = await prisma.note.findMany({where: {completed: false, public: true}});
+            return res.json(incomplete_notes);
+        }
     }
-    if (done === "true") {
-        return res.json(data.filter(note => note.completed));
-    } else if (done === "false") {
-        return res.json(data.filter(note => !note.completed));
-    }
-    res.json(data);
+    const notes = await prisma.note.findMany({where: {public: true}});
+    res.status(200).json(notes);
+    
+    
 });
-app.get("/notes/:noteId", (req, res) => {
-    const noteId = parseInt(req.params.noteId);
-    if (isNaN(noteId)) {
-        return res.status(400).send("Bad request");
+app.get("/notes/:noteId", async (req, res) => {
+    if(!req.user){
+        return res.status(401).json({message: "Not authenticated"});
     }
-    if (noteId < 0 || noteId >= data.length) {
-        return res.status(404).send("Not found");
+    const {noteId} = req.params;
+    
+    const note = await prisma.note.findUnique({where: {id: noteId}});
+    if (noteId < 0 || !note || isNaN(noteId)) {
+        return res.status(404).json({message: "Not found"});
     }
-    res.json(data[req.params["noteId"]]);
+    if(note.userId !== req.user.id){
+        return res.status(403).json({message: "Not permitted"});
+    }
+    res.status(200).json(note);
 });
+app.post("/users", async (req, res) => {
+    const {username, password} = req.body;
+    const exists = await prisma.user.findUnique({where: {username: username}})
+    if(!username || !password){
+        return res.status(400).json({message: "Invalid payload"});
+    }
+    if(exists){
+        return res.status(409).json({message: "A user with that username already exists"});
+    }
+    const newUser = await prisma.user.create({data: {username, password}});
+    res.status(201).json(newUser);
 
-app.post("/notes", (req, res) => {
-    console.log(req.body); // Log request body for debugging
-    const newNote = structuredClone(req.body);
-    data.push(newNote);
-    res.status(201).json(newNote);
 });
-app.patch("/notes/:noteId", (req, res) => {
-    const noteId = parseInt(req.params.noteId);
-    const { done } = req.query;
-    
-    if (isNaN(noteId) || noteId < 0 || noteId >= data.length) {
-        return res.status(404).send("Not found");
+app.post("/notes", async (req, res) => {
+    if (!req.user){
+        return res.status(401).json({message: "Not authenticated"});
     }
-    if (done !== "true" && done !== "false") {
-        return res.status(400).send("Bad request");
+    const { title, description, completed, public} = req.body;
+    if(!title || !description || completed === undefined || public === undefined){
+        return res.status(400).json({message: "Invalid payload"});
     }
-    
-    data[noteId].completed = done === "true";
-    res.status(200).json(data[noteId]);
+    const newNote = await prisma.note.create({data: {title, description, completed, public, userId: req.userId}})
+    res.status(200).json(newNote);
+});
+app.patch("/notes/:noteId", async (req, res) => {
+    if(!req.user){
+        return res.status(401).json({message: "Not authenticated"});
+    }
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({ message: "Invalid payload" });
+    }
+    const noteId = req.params;
+    const {title, description, completed, public} = req.body;
+    const note = await prisma.note.findUnique({where: {id: noteId}});
+    if(!note){
+        return res.status(404).json({message: "Not found"});
+    }
+    if (note.userId !== req.user.id){
+        return res.status(403).json({message: "Not permitted"});
+    }
+
+    const updatedNote = await prisma.note.update({
+        where: {id: noteId},
+        data: {
+            title: title !== undefined ? title: note.title,
+            description: description !== undefined ? description : note.description,
+            completed: completed !== undefined ? completed: note.completed,
+            public: public !== undefined ? public : note.public
+        }
+    })
+    res.status(200).json(updatedNote);
 });
 // ==================
 
@@ -97,4 +143,15 @@ const server = app.listen(port, () => {
 server.on('error', (err) => {
     console.error(`cannot start server: ${err.message}`);
     process.exit(1);
+});
+
+
+const basicAuth = require('./middleware/basicAuth');
+
+app.get('/hello', basicAuth, (req, res) => {
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
 });
