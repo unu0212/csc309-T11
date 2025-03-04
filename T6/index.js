@@ -99,11 +99,11 @@ app.post("/notes", async (req, res) => {
     if (!req.user){
         return res.status(401).json({message: "Not authenticated"});
     }
-    const { title, description, completed, public} = req.body;
-    if(!title || !description || completed === undefined || public === undefined){
+    const { title, description, completed, public: isPublic} = req.body;
+    if(!title || !description || completed === undefined || isPublic=== undefined){
         return res.status(400).json({message: "Invalid payload"});
     }
-    const newNote = await prisma.note.create({data: {title, description, completed, public, userId: req.userId}})
+    const newNote = await prisma.note.create({data: {title, description, completed, isPublic, userId: req.userId}})
     res.status(200).json(newNote);
 });
 app.patch("/notes/:noteId", async (req, res) => {
@@ -114,7 +114,7 @@ app.patch("/notes/:noteId", async (req, res) => {
         return res.status(400).json({ message: "Invalid payload" });
     }
     const noteId = req.params;
-    const {title, description, completed, public} = req.body;
+    const {title, description, completed, public: isPublic} = req.body;
     const note = await prisma.note.findUnique({where: {id: noteId}});
     if(!note){
         return res.status(404).json({message: "Not found"});
@@ -129,7 +129,7 @@ app.patch("/notes/:noteId", async (req, res) => {
             title: title !== undefined ? title: note.title,
             description: description !== undefined ? description : note.description,
             completed: completed !== undefined ? completed: note.completed,
-            public: public !== undefined ? public : note.public
+            public: isPublic !== undefined ? isPublic : note.public
         }
     })
     res.status(200).json(updatedNote);
