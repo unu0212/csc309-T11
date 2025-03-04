@@ -26,6 +26,15 @@ app.get("/", (req, res) => {
 });
 
 // ADD YOUR WORK HERE
+const basicAuth = require('./middleware/basicAuth');
+
+app.get('/hello', basicAuth, (req, res) => {
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+});
 
 const data = [
     {
@@ -143,15 +152,4 @@ const server = app.listen(port, () => {
 server.on('error', (err) => {
     console.error(`cannot start server: ${err.message}`);
     process.exit(1);
-});
-
-
-const basicAuth = require('./middleware/basicAuth');
-
-app.get('/hello', basicAuth, (req, res) => {
-  if (req.user) {
-    res.json(req.user);
-  } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
 });

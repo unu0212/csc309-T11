@@ -14,15 +14,21 @@ const basicAuth = async (req, res, next) => {
     // 3. If found, set req.user to it and allow the next middleware to run.
     // 4. If not, immediate respond with status code 401 and this JSON data: { message: "Invalid credentials" } 
     const baseCred = authHeader.split(' ')[1];
+    if (!baseCred) {
+        return res.status(401).json({ message: "Invalid credentials" });
+    }
     const credentials = Buffer.from(baseCred, 'base64').toString('utf-8');
+    if (!credentials.includes(':')) {
+        return res.status(401).json({ message: "Invalid credentials" });
+    }
     const [username, password] = credentials.split(':');
 
     if (!username || !password) {
         return res.status(401).json({message: "Invalid credentails"});
     }
-    const user = await prisma.user.findUnique({where: {username: username, password: password}});
+    const user = await prisma.user.findUnique({where: {username: username}});
     //const pass = await prisma.user.findUnique({where: {password: password}});
-    if (!user){
+    if (!user || user.password !== password){
         return res.status(401).json({message: "Invalid credentials"});
     }
     req.user = user;
