@@ -118,7 +118,7 @@ app.get("/notes/:noteId", basicAuth, async (req, res) => {
         return res.status(401).json({ message: "Not authenticated" });
     }
 
-    const noteId = parseInt(req.params.noteId);
+    const noteId = parseInt(req.params.noteId, 10);
     if (isNaN(noteId) || noteId < 0) {
         return res.status(404).json({ message: "Not found" });
     }
