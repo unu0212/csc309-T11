@@ -131,8 +131,6 @@ app.get("/notes/:noteId", basicAuth, async (req, res) => {
         return res.status(404).json({ message: "Not found" });
     }
 
-    
-
     res.status(200).json(note);
 });
 
@@ -141,9 +139,7 @@ app.patch("/notes/:noteId", basicAuth, async (req, res) => {
     if (!req.user) {
         return res.status(401).json({ message: "Not authenticated" });
     }
-    if (note.userId !== req.user.id) {
-        return res.status(403).json({ message: "Not permitted" });
-    }
+    
     if (Object.keys(req.body).length === 0) {
         return res.status(400).json({ message: "Invalid payload" });
     }
@@ -156,7 +152,9 @@ app.patch("/notes/:noteId", basicAuth, async (req, res) => {
     const { title, description, completed, public: isPublic } = req.body;
     
     const note = await prisma.note.findUnique({ where: { id: noteId } });
-
+    if (note.userId !== req.user.id) {
+        return res.status(403).json({ message: "Not permitted" });
+    }
     if (!note) {
         return res.status(404).json({ message: "Not found" });
     }
