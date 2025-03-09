@@ -25,6 +25,6 @@ model Note {
   description String
   completed Boolean
   public Boolean
-  authorId Int
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  userId Int
+  author User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
