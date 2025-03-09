@@ -37,7 +37,7 @@ app.get('/hello', basicAuth, (req, res) => {
   if (req.user) {
     res.json(req.user);
   } else {
-    res.status(401).json({ message: 'Unauthorized' });
+    res.status(401).json({ "message": 'Unauthorized' });
   }
 });
 
@@ -56,9 +56,14 @@ app.get("/notes", async (req, res) => {
 
     if (done !== undefined) {
         if (done !== "true" && done !== "false") {
-            return res.status(400).send({ message: "Invalid payload" });
+            return res.status(400).send({ "message": "Invalid payload" });
         }
-        filter.completed = done === 'true';
+        if(done == 'true'){
+            filter.completed = done === 'true';
+        }
+        else{
+            filter.completed = done === 'false';
+        }
     }
 
     const notes = await prisma.note.findMany({ where: filter });
@@ -68,22 +73,22 @@ app.get("/notes", async (req, res) => {
 // Get a single note by ID
 app.get("/notes/:noteId", basicAuth, async (req, res) => {
     if (!req.user) {
-        return res.status(401).json({ message: "Not authenticated" });
+        return res.status(401).json({ "message": "Not authenticated" });
     }
 
     const noteId = parseInt(req.params.noteId, 10);
     if (isNaN(noteId) || noteId < 0) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json({ "message": "Not found" });
     }
 
     const note = await prisma.note.findUnique({ where: { id: noteId } });
 
     if (!note) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json({ "message": "Not found" });
     }
 
     if (note.authorId !== req.user.id) {
-        return res.status(403).json({ message: "Not permitted" });
+        return res.status(403).json({ "message": "Not permitted" });
     }
 
     res.status(200).json(note);
@@ -94,13 +99,13 @@ app.post("/users", async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-        return res.status(400).json({ message: "Invalid payload" });
+        return res.status(400).json({ "message": "Invalid payload" });
     }
 
     const exists = await prisma.user.findUnique({ where: { username } });
     
     if (exists) {
-        return res.status(409).json({ message: "A user with that username already exists" });
+        return res.status(409).json({ "message": "A user with that username already exists" });
     }
 
     const newUser = await prisma.user.create({ data: { username, password } });
@@ -110,13 +115,13 @@ app.post("/users", async (req, res) => {
 // Create a new note
 app.post("/notes", basicAuth, async (req, res) => {
     if (!req.user) {
-        return res.status(401).json({ message: "Not authenticated" });
+        return res.status(401).json({ "message": "Not authenticated" });
     }
 
     const { title, description, completed, public: isPublic } = req.body;
 
     if (!title || !description || completed === undefined || isPublic === undefined) {
-        return res.status(400).json({ message: "Invalid payload" });
+        return res.status(400).json({ "message": "Invalid payload" });
     }
 
     const newNote = await prisma.note.create({
@@ -131,22 +136,22 @@ app.post("/notes", basicAuth, async (req, res) => {
         }
     });
 
-    res.status(200).json(newNote);
+    res.status(201).json(newNote);
 });
 
 // Update a note
 app.patch("/notes/:noteId", basicAuth, async (req, res) => {
     if (!req.user) {
-        return res.status(401).json({ message: "Not authenticated" });
+        return res.status(401).json({ "message": "Not authenticated" });
     }
 
     if (Object.keys(req.body).length === 0) {
-        return res.status(400).json({ message: "Invalid payload" });
+        return res.status(404).json({ "message": "Invalid payload" });
     }
 
     const noteId = parseInt(req.params.noteId, 10);
     if (isNaN(noteId) || noteId < 0) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json({ "message": "Not found" });
     }
 
     const { title, description, completed, public: isPublic } = req.body;
@@ -154,11 +159,11 @@ app.patch("/notes/:noteId", basicAuth, async (req, res) => {
     const note = await prisma.note.findUnique({ where: { id: noteId } });
 
     if (!note) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json({ "message": "Not found" });
     }
 
     if (note.authorId !== req.user.id) {
-        return res.status(403).json({ message: "Not permitted" });
+        return res.status(403).json({ "message": "Not permitted" });
     }
 
     const updatedNote = await prisma.note.update({
