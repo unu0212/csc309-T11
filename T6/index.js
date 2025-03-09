@@ -98,18 +98,19 @@ app.post("/notes", basicAuth, async (req, res) => {
 app.get("/notes", async (req, res) => {
     const { done } = req.query;
     
-    let filter = { public: true };
+    //let filter = { public: true };
 
     if (done !== undefined) {
         if (done !== "true" && done !== "false") {
             return res.status(400).send({ message: "Invalid payload" });
         }
-        filter.completed = done === "true";
-        
+        const notes = await prisma.note.findMany({ where: {public: true, completed: (done === "true")} });
+        return res.status(200).json(notes);
     }
-
-    const notes = await prisma.note.findMany({ where: filter });
-    res.status(200).json(notes);
+    else{
+        const notes = await prisma.note.findMany({ where: {public: true} });
+        return res.status(200).json(notes);
+    }
 });
 
 // Get a single note by ID
@@ -141,20 +142,11 @@ app.patch("/notes/:noteId", basicAuth, async (req, res) => {
     if (!req.user) {
         return res.status(401).json({ message: "Not authenticated" });
     }
-
-    if (Object.keys(req.body).length === 0) {
-        return res.status(400).json({ message: "Invalid payload" });
-    }
-
     const noteId = parseInt(req.params.noteId, 10);
     if (isNaN(noteId) || noteId < 0) {
         return res.status(404).json({ message: "Not found" });
     }
-
-    const { title, description, completed, public: isPublic } = req.body;
-    
     const note = await prisma.note.findUnique({ where: { id: noteId } });
-
     if (!note) {
         return res.status(404).json({ message: "Not found" });
     }
@@ -162,7 +154,16 @@ app.patch("/notes/:noteId", basicAuth, async (req, res) => {
     if (note.userId !== req.user.id) {
         return res.status(403).json({ message: "Not permitted" });
     }
-
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({ message: "Invalid payload" });
+    }
+    const { title, description, completed, public: isPublic } = req.body;
+    if(completed !== undefined && typeof completed !== "boolean"){
+        return res.status(400).json({ message: "Invalid payload" });
+    }
+    if( isPublic !== undefined && typeof isPublic !== "boolean"){
+        return res.status(400).json({ message: "Invalid payload" });
+    }
     const updatedNote = await prisma.note.update({
         where: { id: noteId },
         data: {
