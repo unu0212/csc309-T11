@@ -13,6 +13,6 @@ T8/public/js/controller.js false
 A2/index.js false
 A2/prisma/schema.prisma false
 A2/prisma/createsu.js false
-T9/src/App.js false
-T9/src/components/TodoItem/index.jsx false
 T9/src/components/NewTodo/index.jsx false
+T9/src/components/TodoItem/index.jsx false
+T9/src/App.js false
