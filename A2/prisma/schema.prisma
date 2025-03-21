@@ -7,7 +7,92 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  regular
+  cashier
+  manager
+  superuser
+}
+
 model User {
-  id       Int    @id @default(autoincrement())
-  username String
+  id        Int     @id @default(autoincrement())
+  utorid    String  @unique
+  name      String
+  email     String  @unique
+  birthday  String?
+  password  String
+  role      Role    @default(regular)
+  points    Int     @default(0)
+  createdAt DateTime @default(now())
+  lastLogin DateTime?
+  verified  Boolean @default(false)
+  suspicious Boolean @default(false)
+  avatarUrl String? 
+  resetToken String?
+  expiresAt DateTime?
+  transactions  Transaction[]
+  promotions Promotion[] @relation("UserPromotions")
+  eventOrganizers Event[] @relation("EventOrganizers")
+  eventGuests     Event[] @relation("EventGuests")
+}
+
+enum TransactionType {
+  purchase
+  adjustment
+  redemption
+  transfer
+  event
+}
+
+model Transaction {
+  id         Int      @id @default(autoincrement())
+  utorid     String
+  type       TransactionType
+  spent      Float @default(0)   
+  amount     Float?      
+  suspicious Boolean  @default(false)
+  createdBy  String
+  processedBy String?
+  processed Boolean @default(false)
+  relatedId  Int?     
+  remark     String @default("")
+  promotionIds Promotion[] @relation("TransactionPromotions")
+  user       User     @relation(fields: [utorid], references: [utorid])
+  event   Event? @relation("EventTransactions", fields: [relatedId], references: [id])
+}
+
+model Event {
+  id           Int     @id @default(autoincrement())
+  name         String
+  description  String
+  location     String
+  startTime    DateTime
+  endTime      DateTime
+  capacity     Int?
+  pointsRemain Int
+  pointsAwarded Int  @default(0)
+  published    Boolean @default(false)
+
+  organizers User[] @relation("EventOrganizers")
+  guests     User[] @relation("EventGuests")
+  transactions Transaction[] @relation("EventTransactions")
+}
+
+enum PromotionType {
+  AUTOMATIC
+  ONE_TIME
+}
+
+model Promotion {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  type        PromotionType
+  startTime   DateTime
+  endTime     DateTime
+  minSpending Float?
+  rate        Float?  
+  points      Int?    
+  users User[] @relation("UserPromotions")
+  transactions Transaction[] @relation("TransactionPromotions")
 }

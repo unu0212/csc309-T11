@@ -17,13 +17,20 @@ const port = (() => {
 
     return num;
 })();
-
+const cors = require("cors");
+const { jwtAuth } = require("./middleware/auth");
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users");
 const express = require("express");
 const app = express();
 
 app.use(express.json());
 
 // ADD YOUR WORK HERE
+
+app.use("/auth", authRoutes);
+
+app.use("/users",jwtAuth, userRoutes);
 
 
 const server = app.listen(port, () => {
