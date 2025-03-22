@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const UserRepository = require("../repositories/userRepository");
 const { generateResetToken } = require("../utils/tokenHelpers");
 const { generateAuthToken } = require("../utils/jwtHelpers");
+const { checkRateLimit } = require("../utils/rateLimit");
 const { SECRET_KEY } = require("../utils/config");
 
 class AuthService {
@@ -33,7 +34,7 @@ class AuthService {
     }
 
     
-    async requestPasswordReset(utorid) {
+    async requestPasswordReset(utorid, clientIp) {
         const user = await UserRepository.findUserbyUtorid(utorid);
         if (!user) {
             return { status: 404, message: "This user does not exist." };
@@ -41,7 +42,10 @@ class AuthService {
 
         const resetToken = generateResetToken();
         const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
-
+        const isAllowed = checkRateLimit(clientIp);
+        if (!isAllowed) {
+            return { status: 429, message: "Too many reset requests. Try again later." };
+        }
         await UserRepository.storeResetToken(user.id, resetToken, expiresAt);
 
         return { status: 202, data: { expiresAt, resetToken } };

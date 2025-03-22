@@ -14,19 +14,13 @@ router.post("/tokens", async (req, res) => {
 });
 
 // Request Password Reset
-router.post("/resets", rateLimit, async (req, res) => {
+router.post("/resets", async (req, res) => {
     const {utorid } = req.body;
     if(!utorid){
         return res.status(400).json({message: "invalid payload for reset"});
     }
-    rateLimit(req, res, async (err) => {
-        if (err) return next(err);
-
-        const result = await AuthService.requestPasswordReset(utorid);
-        return res.status(result.status).json(result.data || { message: result.message });
-    });
-    // const result = await AuthService.requestPasswordReset(utorid);
-    // return res.status(result.status).json(result.data || { message: result.message });
+    const result = await AuthService.requestPasswordReset(utorid, req.ip);
+    return res.status(result.status).json(result.data || { message: result.message });
 });
 
 // Reset Password
