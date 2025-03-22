@@ -109,10 +109,10 @@ class UserService {
         //     }
         // }
         //Validating the payload
-        const validationResult = await this._validatePayload(userId, currentUser, update, 'patch');
-        if (validationResult.status !== 200){
-            return validationResult;
-        }
+        // const validationResult = await this._validatePayload(userId, currentUser, update, 'patch');
+        // if (validationResult.status !== 200){
+        //     return validationResult;
+        // }
         //let updatedUser;
         if(currentUser.id === userId){
             const validationResult = await this._validatePayload(userId, currentUser, update, 'patch');
