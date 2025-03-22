@@ -103,11 +103,11 @@ class UserService {
         if(!existsUser){
             return {status: 404, message: "User with this Id is not found."};
         }
-        if(currentUser.id !== userId){
-            if (currentUser.role == 'regular' || currentUser.role == 'cashier'){
-                return {status: 403, message: "Forbidden: You do not have permission for this action."};
-            }
-        }
+        // if(currentUser.id !== userId){
+        //     if (currentUser.role == 'regular' || currentUser.role == 'cashier'){
+        //         return {status: 403, message: "Forbidden: You do not have permission for this action."};
+        //     }
+        // }
         //Validating the payload
         const validationResult = await this._validatePayload(userId, currentUser, update, 'patch');
         if (validationResult.status !== 200){
@@ -115,10 +115,22 @@ class UserService {
         }
         //let updatedUser;
         if(currentUser.id === userId){
+            const validationResult = await this._validatePayload(userId, currentUser, update, 'patch');
+            if (validationResult.status !== 200){
+                return validationResult;
+            }
             const updatedUser = await UserRepository.updateMyInfo(userId, update);
             
             return { status: 200, data: updatedUser };
             //return { status: 200, data: await UserRepository.updateMyInfo(userId, update) };
+        }
+
+        if (currentUser.role == 'regular' || currentUser.role == 'cashier'){
+            return {status: 403, message: "Forbidden: You do not have permission for this action."};
+        }
+        const validationResult1 = await this._validatePayload(userId, currentUser, update, 'patch');
+        if (validationResult1.status !== 200){
+            return validationResult1;
         }
         const updatedUser = await UserRepository.updateUser(userId, update);
         console.log(update);
@@ -217,15 +229,15 @@ class UserService {
                 if (payload[key] === 'cashier' && type == 'patch' && (updateUser.suspicious && updateUser.suspicious !== false)) {
                     return { status: 400, message: "If role is set to 'cashier', 'suspicious' must be false." };
                 }
-                if (currentUser.role === 'manager' && type == 'patch' && !['regular', 'cashier'].includes(payload[key]) ) {
+                if (currentUser.role === 'manager' && type == 'patch' && ['manager', 'superuser'].includes(payload[key]) ) {
                     return { status: 400, message: "Managers can only assign roles 'regular' or 'cashier'." };
                 }
                 
             }
-            if (key === 'page' && (typeof payload[key] !== 'number' || !(Number.isInteger(page)) || (page <= 0))) {
+            if (key === 'page' && (typeof payload[key] !== 'number' || !(Number.isInteger(payload[key])) || (payload[key] <= 0))) {
                 return { status: 400, message: "Invalid data type: 'page' must be a number." };
             }
-            if (key === 'limit' && typeof payload[key] !== 'number' && !Number.isInteger(limit) && limit <= 0) {
+            if (key === 'limit' && typeof payload[key] !== 'number' && !Number.isInteger(payload[key]) && payload[key] <= 0) {
                 return { status: 400, message: "Invalid data type: 'limit' must be a number." };
             }
             
