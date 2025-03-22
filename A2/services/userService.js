@@ -76,8 +76,8 @@ class UserService {
     }
 
     async getUser(userId, currentUser){
-        if(currentUser.role === 'manager' || currentUser.role === 'superuser' ||
-        currentUser.id === userId){
+        if(currentUser.role == 'manager' || currentUser.role == 'superuser' ||
+        currentUser.id == userId){
             const user = await UserRepository.findUserbyId_allInfo(userId);
             if(!user){
                 return {status: 404, message: "User with this Id is not found."};
@@ -85,7 +85,7 @@ class UserService {
             return {status: 200, data: user};
         }
 
-        if(currentUser.role === 'cashier'){
+        if(currentUser.role == 'cashier'){
             const user = await UserRepository.findUserbyId_lower(userId);
             if(!user){
                 return {status: 404, message: "User with this Id is not found."};
@@ -93,7 +93,7 @@ class UserService {
             return {status: 200, data: user};
         }
 
-        if (currentUser.role === 'regular'){
+        if (currentUser.role == 'regular'){
             return {status: 403, message: "Forbidden: You do not have permission for this action."};
         }
     }
@@ -104,7 +104,7 @@ class UserService {
             return {status: 404, message: "User with this Id is not found."};
         }
         if(currentUser.id !== userId){
-            if (currentUser.role === 'regular' || currentUser.role === 'cashier'){
+            if (currentUser.role == 'regular' || currentUser.role == 'cashier'){
                 return {status: 403, message: "Forbidden: You do not have permission for this action."};
             }
         }
@@ -179,15 +179,15 @@ class UserService {
             if (key === 'name' && typeof payload[key] !== 'string') {
                 return { status: 400, message: "Invalid data type: 'name' must be a string." };
             }
-            if (key === 'email' && (typeof payload[key] !== 'string' || payload[key] !== null)) {
+            if (key === 'email' && (key && typeof payload[key] !== 'string')) {
                 return { status: 400, message: "Invalid data type: 'email' must be a string." };
             }
-            if (key === 'email' && payload[key] !== null){
-                const isValidUofTEmail = this._isValidUofTEmail(payload[key]);
-                if(!isValidUofTEmail){
-                    return {status: 400, message: "This is an invalid email, must be Uoft email."};
-                }   
-            }
+            // if (key === 'email' && payload[key] !== null){
+            //     const isValidUofTEmail = this._isValidUofTEmail(payload[key]);
+            //     if(!isValidUofTEmail){
+            //         return {status: 400, message: "This is an invalid email, must be Uoft email."};
+            //     }   
+            // }
             
             if (key === 'birthday' && !/^\d{4}-\d{2}-\d{2}$/.test(payload[key])) {
                 return { status: 400, message: "Invalid data format: 'birthday' must be in YYYY-MM-DD format." };
@@ -195,16 +195,16 @@ class UserService {
             if (key === 'avatar' && typeof payload[key] !== 'string') {
                 return { status: 400, message: "Invalid data type: 'avatar' must be a string (URL or file path)." };
             }
-            if (key === 'verified' && (typeof payload[key] !== 'boolean' && key)) {
+            if (key === 'verified' && (key && typeof payload[key] !== 'boolean')) {
                 return { status: 400, message: "Invalid data type: 'verified' must be a boolean." };
             }
             if (key === 'verified' && payload[key] !== true) {
                 return { status: 400, message: "Invalid data type: 'verified' must be set to true." };
             }
-            if (key === 'suspicious' && (typeof payload[key] !== 'boolean' && key)) {
+            if (key === 'suspicious' && (key && typeof payload[key] !== 'boolean')) {
                 return { status: 400, message: "Invalid data type: 'suspicious' must be a boolean." };
             }
-            if (key === 'activated' && (typeof payload[key] !== 'boolean' && key)) {
+            if (key === 'activated' && (key && typeof payload[key] !== 'boolean')) {
                 return { status: 400, message: "Invalid data type: 'activated' must be a boolean." };
             }
             if( key === 'role'){
@@ -214,7 +214,7 @@ class UserService {
                 if (!['regular', 'cashier', 'manager', 'superuser'].includes(payload[key])) {
                     return { status: 400, message: "Invalid value: 'role' must be one of 'regular', 'cashier', 'manager', or 'superuser'." };
                 }
-                if (payload[key] === 'cashier' && type == 'patch' && updateUser.suspicious !== false ) {
+                if (payload[key] === 'cashier' && type == 'patch' && (updateUser.suspicious && updateUser.suspicious !== false)) {
                     return { status: 400, message: "If role is set to 'cashier', 'suspicious' must be false." };
                 }
                 if (currentUser.role === 'manager' && type == 'patch' && !['regular', 'cashier'].includes(payload[key]) ) {
