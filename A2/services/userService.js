@@ -195,16 +195,16 @@ class UserService {
             if (key === 'avatar' && typeof payload[key] !== 'string') {
                 return { status: 400, message: "Invalid data type: 'avatar' must be a string (URL or file path)." };
             }
-            if (key === 'verified' && typeof payload[key] !== 'boolean') {
+            if (key === 'verified' && (typeof payload[key] !== 'boolean' && key)) {
                 return { status: 400, message: "Invalid data type: 'verified' must be a boolean." };
             }
             if (key === 'verified' && payload[key] !== true) {
                 return { status: 400, message: "Invalid data type: 'verified' must be set to true." };
             }
-            if (key === 'suspicious' && (typeof payload[key] !== 'boolean' || payload[key] !== null)) {
+            if (key === 'suspicious' && (typeof payload[key] !== 'boolean' && key)) {
                 return { status: 400, message: "Invalid data type: 'suspicious' must be a boolean." };
             }
-            if (key === 'activated' && typeof payload[key] !== 'boolean') {
+            if (key === 'activated' && (typeof payload[key] !== 'boolean' && key)) {
                 return { status: 400, message: "Invalid data type: 'activated' must be a boolean." };
             }
             if( key === 'role'){
@@ -214,10 +214,10 @@ class UserService {
                 if (!['regular', 'cashier', 'manager', 'superuser'].includes(payload[key])) {
                     return { status: 400, message: "Invalid value: 'role' must be one of 'regular', 'cashier', 'manager', or 'superuser'." };
                 }
-                if (payload[key] === 'cashier' && type === 'patch' && updateUser.suspicious !== false ) {
+                if (payload[key] === 'cashier' && type == 'patch' && updateUser.suspicious !== false ) {
                     return { status: 400, message: "If role is set to 'cashier', 'suspicious' must be false." };
                 }
-                if (currentUser.role === 'manager' && type === 'patch' && !['regular', 'cashier'].includes(payload[key]) ) {
+                if (currentUser.role === 'manager' && type == 'patch' && !['regular', 'cashier'].includes(payload[key]) ) {
                     return { status: 400, message: "Managers can only assign roles 'regular' or 'cashier'." };
                 }
                 

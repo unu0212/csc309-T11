@@ -10,9 +10,15 @@ class EventService {
         if (missingFields.length > 0) {
             return {status: 400, message: `Missing required fields: ${missingFields.join(", ")}`};
         }
-
+        const now = new Date();
+        if (new Date(payload.startTime) >= new Date(payload.endTime)) {
+            return { status: 400, message: "endTime must be after startTime." };
+        }
+        if (new Date(payload.startTime) <= now) {
+            return { status: 400, message: "endTime must be after startTime." };
+        }
         if(!["manager", "superuser"].includes(currentUser.role)){
-            return {status: 403, message: "unauthorized to create event manager or higher"};
+            return {status: 403, message: "unauthorized to create event, manager or higher"};
         }
 
         const validationResult = this._validatePayload(payload);
@@ -33,9 +39,7 @@ class EventService {
                     organizers: newEvent.organizers,
                     guests: newEvent.guests
             }}
-        // if (new Date(payload.startTime) >= new Date(payload.endTime)) {
-        //     return { status: 400, message: "endTime must be after startTime." };
-        //   }
+        
     }
 
     async addOrganizer(currentUser, eventId, utorid){
