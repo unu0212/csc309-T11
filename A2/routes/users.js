@@ -53,13 +53,13 @@ router.patch("/me/password", jwtAuth, async(req, res)=> {
 
 router.post("/me/transactions", jwtAuth, async(req, res) => {
     const payload = req.body;
-    const result = await TransactionService.createRedemptionTransaction(res.user, payload);
+    const result = await TransactionService.createRedemptionTransaction(req.user, payload);
     return res.status(statusCode).json(result.data || {message: result.message});
 })
 
 router.get("/me/transactions", jwtAuth, async(req, res) => {
     const payload = req.body;
-    const result = await TransactionService.getMyTransactions(res.user, payload);
+    const result = await TransactionService.getMyTransactions(req.user, payload);
     return res.status(statusCode).json(result.data || {message: result.message});
 })
 

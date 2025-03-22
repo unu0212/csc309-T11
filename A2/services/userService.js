@@ -177,15 +177,15 @@ class UserService {
             }
     
             if (key === 'name' && typeof payload[key] !== 'string') {
-                return { status: 401, message: "Invalid data type: 'name' must be a string." };
+                return { status: 400, message: "Invalid data type: 'name' must be a string." };
             }
             if (key === 'email' && (typeof payload[key] !== 'string' || payload[key] !== null)) {
-                return { status: 402, message: "Invalid data type: 'email' must be a string." };
+                return { status: 400, message: "Invalid data type: 'email' must be a string." };
             }
             if (key === 'email' && payload[key] !== null){
                 const isValidUofTEmail = this._isValidUofTEmail(payload[key]);
                 if(!isValidUofTEmail){
-                    return {status: 488, message: "This is an invalid email, must be Uoft email."};
+                    return {status: 400, message: "This is an invalid email, must be Uoft email."};
                 }   
             }
             
@@ -196,13 +196,13 @@ class UserService {
                 return { status: 400, message: "Invalid data type: 'avatar' must be a string (URL or file path)." };
             }
             if (key === 'verified' && typeof payload[key] !== 'boolean') {
-                return { status: 405, message: "Invalid data type: 'verified' must be a boolean." };
+                return { status: 400, message: "Invalid data type: 'verified' must be a boolean." };
             }
             if (key === 'verified' && payload[key] !== true) {
-                return { status: 406, message: "Invalid data type: 'verified' must be set to true." };
+                return { status: 400, message: "Invalid data type: 'verified' must be set to true." };
             }
             if (key === 'suspicious' && (typeof payload[key] !== 'boolean' || payload[key] !== null)) {
-                return { status: 407, message: "Invalid data type: 'suspicious' must be a boolean." };
+                return { status: 400, message: "Invalid data type: 'suspicious' must be a boolean." };
             }
             if (key === 'activated' && typeof payload[key] !== 'boolean') {
                 return { status: 400, message: "Invalid data type: 'activated' must be a boolean." };
@@ -215,10 +215,10 @@ class UserService {
                     return { status: 400, message: "Invalid value: 'role' must be one of 'regular', 'cashier', 'manager', or 'superuser'." };
                 }
                 if (payload[key] === 'cashier' && type === 'patch' && updateUser.suspicious !== false ) {
-                    return { status: 409, message: "If role is set to 'cashier', 'suspicious' must be false." };
+                    return { status: 400, message: "If role is set to 'cashier', 'suspicious' must be false." };
                 }
                 if (currentUser.role === 'manager' && type === 'patch' && !['regular', 'cashier'].includes(payload[key]) ) {
-                    return { status: 410, message: "Managers can only assign roles 'regular' or 'cashier'." };
+                    return { status: 400, message: "Managers can only assign roles 'regular' or 'cashier'." };
                 }
                 
             }
