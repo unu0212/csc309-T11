@@ -15,6 +15,9 @@ class UserService {
         if (!regex.test(utorid)){
             return {status: 400, message: "This is an invalid utorid must be alphanumeric with 8chars."}
         }
+        if(!(name.length >= 1 && name.length <= 50)){
+            return {status: 400, message: "This is an invalid name must be <50chars"};
+        }
         const isValidUofTEmail = this._isValidUofTEmail(email);
         if(!isValidUofTEmail){
             return {status: 400, message: "This is an invalid email, must be Uoft email."}
