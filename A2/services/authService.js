@@ -53,18 +53,18 @@ class AuthService {
 
     
     async resetPassword(resetToken, utorid, newPassword) {
-        const user = await UserRepository.findUserbyUtorid(utorid);
-        if(!user || user.resetToken != resetToken){
-            return { status: 401, message: "Token not found." };
-        }
+        
         const user2 = await UserRepository.getUserByResetToken(resetToken);
         if (!user2 ) return { status: 404, message: "Token not found." };
 
         //if(user.utorid !== utorid)return { status: 401, message: "Unautharized wrong token" };
-        if (new Date(user.expiresAt) < new Date()) {
+        if (new Date(user2.expiresAt) < new Date()) {
             return { status: 410, message: "Reset token expired." };
         }
-
+        const user = await UserRepository.findUserbyUtorid(utorid);
+        if(!user || user.resetToken != resetToken){
+            return { status: 401, message: "Token not found." };
+        }
         if(!this._passwordValidator(newPassword)){
             return {status: 400, message: "Bad request: the password must be strong."};
         }
