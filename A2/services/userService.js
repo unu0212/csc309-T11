@@ -230,7 +230,7 @@ class UserService {
                     return { status: 400, message: "If role is set to 'cashier', 'suspicious' must be false." };
                 }
                 if (currentUser.role === 'manager' && type == 'patch' && ['manager', 'superuser'].includes(payload[key]) ) {
-                    return { status: 400, message: "Managers can only assign roles 'regular' or 'cashier'." };
+                    return { status: 403, message: "Managers can only assign roles 'regular' or 'cashier'." };
                 }
                 
             }
