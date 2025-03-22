@@ -54,13 +54,13 @@ class AuthService {
     
     async resetPassword(resetToken, utorid, newPassword) {
         const user = await UserRepository.findUserbyUtorid(utorid);
-        if(user.resetToken != resetToken){
+        if(!user || user.resetToken != resetToken){
             return { status: 401, message: "Token not found." };
         }
-        const user2 = await UserRepository.getUserByResetToken(utorid, resetToken);
+        const user2 = await UserRepository.getUserByResetToken(resetToken);
         if (!user2 ) return { status: 404, message: "Token not found." };
 
-        if(user.utorid !== utorid)return { status: 401, message: "Unautharized wrong token" };
+        //if(user.utorid !== utorid)return { status: 401, message: "Unautharized wrong token" };
         if (new Date(user.expiresAt) < new Date()) {
             return { status: 410, message: "Reset token expired." };
         }

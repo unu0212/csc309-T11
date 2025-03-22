@@ -25,10 +25,10 @@ model User {
   points    Int     @default(0)
   createdAt DateTime @default(now())
   lastLogin DateTime?
-  verified  Boolean @default(false)
-  suspicious Boolean @default(false)
+  verified  Boolean? @default(false)
+  suspicious Boolean? @default(false)
   avatarUrl String? 
-  resetToken String?
+  resetToken String? @unique
   expiresAt DateTime?
   transactions  Transaction[]
   promotions Promotion[] @relation("UserPromotions")
@@ -50,10 +50,10 @@ model Transaction {
   type       TransactionType
   spent      Float @default(0)   
   amount     Float?      
-  suspicious Boolean  @default(false)
+  suspicious Boolean?  @default(false)
   createdBy  String
   processedBy String?
-  processed Boolean @default(false)
+  processed Boolean? @default(false)
   relatedId  Int?     
   remark     String @default("")
   promotionIds Promotion[] @relation("TransactionPromotions")
@@ -79,8 +79,8 @@ model Event {
 }
 
 enum PromotionType {
-  AUTOMATIC
-  ONE_TIME
+  automatic
+  one_time
 }
 
 model Promotion {
