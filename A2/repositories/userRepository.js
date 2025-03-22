@@ -7,8 +7,8 @@ class UserRepository {
         return prisma.user.findUnique({where: {id}});
     }
     
-    async getUserByResetToken(utorid, resetToken){
-        return prisma.user.findUnique({ where: {utorid, resetToken } });
+    async getUserByResetToken(resetToken){
+        return prisma.user.findUnique({ where: { resetToken } });
     }
 
     async findUserbyId_lower(id){
