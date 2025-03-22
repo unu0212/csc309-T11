@@ -8,7 +8,9 @@ class UserService {
         if (!["cashier", "manager", "superuser"].includes(currentUser.role)) {
             return { status: 403, message: "Forbidden: Only Cashiers or higher can register users." };
         }
-
+        if(typeof utorid !== 'string' || typeof name !== 'string' || typeof email !== 'string'){
+            return {status: 400, message: "invalid payload for registering user must be string."};
+        }
         const existingUser = await UserRepository.findUserbyUtorid(utorid);
         const emailExists = await UserRepository.findUserbyEmail(email);
         if (existingUser || emailExists) {
@@ -58,7 +60,6 @@ class UserService {
         }
         const validationResult = await this._validatePayload(0, currentUser, filters, 'get');
         if (validationResult.status !== 200){
-            console.log(filters);
             return validationResult;
         }
         const result = await UserRepository.findAllUsers(filters, page, limit);
@@ -119,11 +120,14 @@ class UserService {
     }
 
     async updatePassword(userId, oldpass, newPass){
+        if(typeof oldpass!== 'string' || typeof newPass !== 'string'){
+            return {status: 400, message: "Invalid payload passwords must be string"};
+        }
         const user = await UserRepository.getUserbyId(userId);
         if(!user){
             return {status: 404, message: "User with this Id is not found."};
         }
-
+        
         const passCorrect = await bcrypt.compare(oldpass, user.password);
         if (!passCorrect){
             return {status: 403, message: "Forbidden, password incorrect."};
