@@ -12,7 +12,7 @@ class UserService {
             return {status: 400, message: "invalid payload for registering user must be string."};
         }
         const regex = /^[a-zA-Z0-9]{8}$/;
-        if (regex.test(utorid)){
+        if (!regex.test(utorid)){
             return {status: 400, message: "This is an invalid utorid must be alphanumeric with 8chars."}
         }
         const isValidUofTEmail = this._isValidUofTEmail(email);

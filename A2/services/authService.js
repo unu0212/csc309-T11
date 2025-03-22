@@ -36,7 +36,7 @@ class AuthService {
     async requestPasswordReset(utorid) {
         const user = await UserRepository.findUserbyUtorid(utorid);
         if (!user) {
-            return { status: 409, message: "This user does not exist." };
+            return { status: 404, message: "This user does not exist." };
         }
 
         const resetToken = generateResetToken();
