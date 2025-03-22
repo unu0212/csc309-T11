@@ -11,16 +11,21 @@ class UserService {
         if(typeof utorid !== 'string' || typeof name !== 'string' || typeof email !== 'string'){
             return {status: 400, message: "invalid payload for registering user must be string."};
         }
+        const regex = /^[a-zA-Z0-9]{8}$/;
+        if (regex.test(utorid)){
+            return {status: 400, message: "This is an invalid utorid must be alphanumeric with 8chars."}
+        }
+        const isValidUofTEmail = this._isValidUofTEmail(email);
+        if(!isValidUofTEmail){
+            return {status: 400, message: "This is an invalid email, must be Uoft email."}
+        }
         const existingUser = await UserRepository.findUserbyUtorid(utorid);
         const emailExists = await UserRepository.findUserbyEmail(email);
         if (existingUser || emailExists) {
             return { status: 409, message: "User with this utorId or email exists." };
         }
 
-        const isValidUofTEmail = this._isValidUofTEmail(email);
-        if(!isValidUofTEmail){
-            return {status: 400, message: "This is an invalid email, must be Uoft email."}
-        }
+        
         const resetToken = generateResetToken();
         const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
