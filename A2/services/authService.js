@@ -50,8 +50,9 @@ class AuthService {
     
     async resetPassword(resetToken, utorid, newPassword) {
         const user = await UserRepository.getUserByResetToken(utorid, resetToken);
-        if (!user || user.utorid !== utorid) return { status: 404, message: "Invalid reset token." };
+        if (!user ) return { status: 400, message: "Invalid reset token." };
 
+        if(user.utorid !== utorid)return { status: 401, message: "Unautharized wrong token" };
         if (new Date(user.expiresAt) < new Date()) {
             return { status: 410, message: "Reset token expired." };
         }

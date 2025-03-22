@@ -58,6 +58,10 @@ class UserService {
         if (currentUser.role !== 'manager' && currentUser.role !== 'superuser') {
             return { status: 403, message: "Forbidden: You do not have permission to view users." };
         }
+        const validationResult = await this._validatePayload(0, currentUser, filters, 'get');
+        if (validationResult.status !== 200){
+            return validationResult;
+        }
         let page = 1;
         let limit = 10;
         if (filters.page){
@@ -66,10 +70,7 @@ class UserService {
         if(filters.limit){
             limit = filters.limit;
         }
-        const validationResult = await this._validatePayload(0, currentUser, filters, 'get');
-        if (validationResult.status !== 200){
-            return validationResult;
-        }
+        
         const result = await UserRepository.findAllUsers(filters, page, limit);
         return { status: 200, data: result };
     }
@@ -221,10 +222,10 @@ class UserService {
                 }
                 
             }
-            if (key === 'page' && typeof payload[key] !== 'number') {
+            if (key === 'page' && typeof payload[key] !== 'number' && !Number.isInteger(page) && page <= 0) {
                 return { status: 400, message: "Invalid data type: 'page' must be a number." };
             }
-            if (key === 'limit' && typeof payload[key] !== 'number') {
+            if (key === 'limit' && typeof payload[key] !== 'number' && !Number.isInteger(limit) && limit <= 0) {
                 return { status: 400, message: "Invalid data type: 'limit' must be a number." };
             }
             

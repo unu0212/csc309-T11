@@ -20,7 +20,7 @@ class UserRepository {
                 name: true,
                 points: true,
                 verified: true,
-                //promotions: true,
+                promotions: true
             }
         });
     }
@@ -38,8 +38,8 @@ class UserRepository {
                 createdAt: true,
                 lastLogin: true,
                 verified: true,
-                //avatarUrl: true,
-                //promotions: true,
+                avatarUrl: true,
+                promotions: true
             }
         });
     }
@@ -82,18 +82,18 @@ class UserRepository {
             where,
             skip,
             take: limit,
-            // select: {
-            //     id: true, 
-            //     utorid: true,
-            //     email: true, 
-            //     birthday: true,
-            //     role: true,
-            //     points: true,
-            //     createdAt: true,
-            //     lastLogin: true,
-            //     verified: true,
-            //     avatarUrl: true
-            // }
+            select: {
+                id: true, 
+                utorid: true,
+                email: true, 
+                birthday: true,
+                role: true,
+                points: true,
+                createdAt: true,
+                lastLogin: true,
+                verified: true,
+                avatarUrl: true
+            }
         });
 
         // Count total users matching the filters (for pagination)
@@ -139,7 +139,7 @@ class UserRepository {
                 createdAt: true,
                 lastLogin: true,
                 verified: true,
-                //avatarUrl: true
+                avatarUrl: true
             }
         });
     }
