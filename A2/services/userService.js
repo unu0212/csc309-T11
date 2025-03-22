@@ -179,10 +179,10 @@ class UserService {
             if (key === 'name' && typeof payload[key] !== 'string') {
                 return { status: 401, message: "Invalid data type: 'name' must be a string." };
             }
-            if (key === 'email' && typeof payload[key] !== 'string') {
+            if (key === 'email' && (typeof payload[key] !== 'string' || payload[key] !== null)) {
                 return { status: 402, message: "Invalid data type: 'email' must be a string." };
             }
-            if (key === 'email'){
+            if (key === 'email' && payload[key] !== null){
                 const isValidUofTEmail = this._isValidUofTEmail(payload[key]);
                 if(!isValidUofTEmail){
                     return {status: 403, message: "This is an invalid email, must be Uoft email."};
@@ -201,7 +201,7 @@ class UserService {
             if (key === 'verified' && payload[key] !== true) {
                 return { status: 406, message: "Invalid data type: 'verified' must be set to true." };
             }
-            if (key === 'suspicious' && typeof payload[key] !== 'boolean') {
+            if (key === 'suspicious' && (typeof payload[key] !== 'boolean' || payload[key] !== null)) {
                 return { status: 407, message: "Invalid data type: 'suspicious' must be a boolean." };
             }
             if (key === 'activated' && typeof payload[key] !== 'boolean') {
