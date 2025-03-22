@@ -54,7 +54,7 @@ class AuthService {
     
     async resetPassword(resetToken, utorid, newPassword) {
         const user = await UserRepository.findUserbyUtorid(utorid);
-        if(!user || user.resetToken != resetToken){
+        if(!user || user.resetToken !== resetToken){
             return { status: 401, message: "Invalid token, not your token" };
         }
         const valid_token = await UserRepository.getUserByResetToken(resetToken);
