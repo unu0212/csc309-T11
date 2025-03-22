@@ -23,6 +23,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const transRoutes = require("./routes/transactions");
 const eventsRoutes = require("./routes/events");
+const promotionRoutes = require("./routes/promotion");
 const express = require("express");
 const app = express();
 
@@ -37,6 +38,8 @@ app.use("/users",jwtAuth, userRoutes);
 app.use("/transactions", jwtAuth, transRoutes);
 
 app.use("/events", jwtAuth, eventsRoutes);
+
+app.use("/promotions", jwtAuth, promotionRoutes);
 
 
 const server = app.listen(port, () => {
