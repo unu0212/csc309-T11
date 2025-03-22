@@ -60,8 +60,8 @@ class UserRepository {
 
         if (filters.name) {
             where.OR = [
-                { utorid: { contains: filters.name, mode: 'insensitive' } },
-                { name: { contains: filters.name, mode: 'insensitive' } }
+                { utorid: { equals: filters.name} },
+                { name: { equals: filters.name} }
             ];
         }
 

@@ -101,10 +101,10 @@ class TransactionService {
      
     async createTransferTransaction(currentUser, payload, userId){
         const requiredFields = ['type', 'amount'];
-            const missingFields = requiredFields.filter(field => !(field in payload));
-            if (missingFields.length > 0) {
-                return {status: 400, message: `Missing required fields: ${missingFields.join(", ")}`};
-            }
+        const missingFields = requiredFields.filter(field => !(field in payload));
+        if (missingFields.length > 0) {
+            return {status: 400, message: `Missing required fields: ${missingFields.join(", ")}`};
+        }
         if(payload.type !== 'transfer'){
             return {status: 400, message: "type must be transfer"};
         }
@@ -225,11 +225,11 @@ class TransactionService {
         }
         let page = 1;
         let limit = 10;
-        if (filter.page){
-            page = filter.page;
+        if (payload.page){
+            page = payload.page;
         }
-        if(filter.limit){
-            limit = filter.limit;
+        if(payload.limit){
+            limit = payload.limit;
         }
         const transactions = await TransactionRepository.getTransactions(payload, page, limit, currentUser.utorid);
         return  {status: 200, data: transactions};
