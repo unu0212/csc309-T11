@@ -185,7 +185,7 @@ class UserService {
             if (key === 'email' && payload[key] !== null){
                 const isValidUofTEmail = this._isValidUofTEmail(payload[key]);
                 if(!isValidUofTEmail){
-                    return {status: 403, message: "This is an invalid email, must be Uoft email."};
+                    return {status: 488, message: "This is an invalid email, must be Uoft email."};
                 }   
             }
             
