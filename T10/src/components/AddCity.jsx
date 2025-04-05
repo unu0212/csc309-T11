@@ -1,18 +1,37 @@
 import './AddCity.css';
-import { forwardRef, useState } from "react";
+import { forwardRef, useState } from 'react';
+import { useCities } from '../contexts/CitiesContext';
 
 const AddCity = forwardRef(({ setError }, ref) => {
-    const [cityName, setCityName] = useState("");
+    const [cityName, setCityName] = useState('');
+    const { addCity } = useCities();
 
-    const handle_submit = (e) => {
-        e.preventDefault(); 
+    const handle_submit = async (e) => {
+        e.preventDefault();
+        const trimmed = cityName.trim();
 
-        setError("TODO: complete me");    
-        // HINT: fetch the coordinates of the city from Nominatim,
-        //       then add it to CitiesContext's list of cities.
-        
-        setCityName("");
-        ref.current?.close();
+        if (trimmed === '') {
+            setError("City name cannot be blank.");
+            return;
+        }
+
+        try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${trimmed}&limit=1`);
+            const data = await res.json();
+
+            if (data.length === 0) {
+                setError(`City '${trimmed}' is not found.`);
+                return;
+            }
+
+            const { lat, lon, display_name } = data[0];
+            addCity(display_name, lat, lon);
+            setCityName('');
+            setError('');
+            ref.current?.close();
+        } catch (err) {
+            setError("Error fetching city data.");
+        }
     };
 
     return (
@@ -30,7 +49,6 @@ const AddCity = forwardRef(({ setError }, ref) => {
                     onChange={(e) => setCityName(e.target.value)}
                     required
                 />
-                
                 <div className="button-group">
                     <button type="submit">Add</button>
                     <button type="button" onClick={() => ref.current?.close()}>
