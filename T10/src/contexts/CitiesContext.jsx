@@ -3,8 +3,10 @@ import { createContext, useContext, useState, useRef } from "react";
 export const CitiesContext = createContext();
 
 export const CitiesProvider = ({ children }) => {
-    const [cities, _setCities] = useState([]);
-    const nextId = useRef(1);
+    const [cities, _setCities] = useState([
+        { id: 1, name: "Toronto", latitude: 43.70011, longitude: -79.4163 }
+    ]);
+    const nextId = useRef(2);
     // TODO: complete me
     // HINT: it may be good to provide addCity and removeCity functions
     const removeCity = (cityId) => {

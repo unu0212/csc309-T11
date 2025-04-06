@@ -15,23 +15,16 @@ const AddCity = forwardRef(({ setError }, ref) => {
             return;
         }
 
-        try {
-            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${trimmed}&limit=1`);
-            const data = await res.json();
-
-            if (data.length === 0) {
-                setError(`City '${trimmed}' is not found.`);
-                return;
-            }
-
-            const { lat, lon, display_name } = data[0];
-            addCity(display_name, lat, lon);
-            setCityName('');
-            setError('');
-            ref.current?.close();
-        } catch (err) {
-            setError("Error fetching city data.");
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${trimmed}&limit=1`);
+        const data = await res.json();
+        if (data.length === 0) {
+            setError(`City '${trimmed}' is not found.`);                return;
         }
+        const { lat, lon, display_name } = data[0];
+        addCity(display_name, lat, lon);
+        setCityName('');
+        setError('');
+        ref.current?.close();
     };
 
     return (
