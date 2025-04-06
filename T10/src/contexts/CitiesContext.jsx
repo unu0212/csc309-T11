@@ -10,7 +10,7 @@ export const CitiesProvider = ({ children }) => {
     // TODO: complete me
     // HINT: it may be good to provide addCity and removeCity functions
     const removeCity = (cityId) => {
-        _setCities(cities.filter((city) => city.id !== cityId));
+        _setCities(prevCities => prevCities.filter(city => city.id !== cityId));
     };
 
     const addCity = (name, latitude, longitude) => {

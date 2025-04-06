@@ -8,7 +8,8 @@ import NotFound from './pages/NotFound';
 import Detail from './pages/Detail';
 
 const App = () => {
-    return (<CitiesProvider>
+    return (
+    <CitiesProvider>
         <BrowserRouter>
             <Routes>
                 <Route path = "/" element = {<Layout/>} >

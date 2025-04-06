@@ -20,8 +20,9 @@ const AddCity = forwardRef(({ setError }, ref) => {
         if (data.length === 0) {
             setError(`City '${trimmed}' is not found.`);                return;
         }
-        const { lat, lon, display_name } = data[0];
-        addCity(display_name, lat, lon);
+        const { lat, lon, address } = data[0];
+        const shortName = address?.city || address?.town || address?.village || address?.county || address?.state || trimmed;
+        addCity(shortName, lat, lon);
         setCityName('');
         setError('');
         ref.current?.close();
